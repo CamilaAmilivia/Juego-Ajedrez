@@ -19,14 +19,31 @@ board = chess.Board()
 
 @app.get("/pieces")
 async def get_pieces():
-    return {}
+    return {
+        "WHITE" : {
+            "ROOK" : chess.svg.piece(chess.Piece.from_symbol("R")),
+            "PAWN" : chess.svg.piece(chess.Piece.from_symbol("P")),
+            "KNIGHT" : chess.svg.piece(chess.Piece.from_symbol("N")),
+            "BISHOP" : chess.svg.piece(chess.Piece.from_symbol("B")),
+            "QUEEN" : chess.svg.piece(chess.Piece.from_symbol("Q")),
+            "KING" : chess.svg.piece(chess.Piece.from_symbol("K")),
+        },
+        "BLACK" : {
+            "ROOK" : chess.svg.piece(chess.Piece.from_symbol("r")),
+            "PAWN" : chess.svg.piece(chess.Piece.from_symbol("p")),
+            "KNIGHT" : chess.svg.piece(chess.Piece.from_symbol("n")),
+            "BISHOP" : chess.svg.piece(chess.Piece.from_symbol("b")),
+            "QUEEN" : chess.svg.piece(chess.Piece.from_symbol("q")),
+            "KING" : chess.svg.piece(chess.Piece.from_symbol("k")),
+        },
+    }
 
-@app.get("/make_move/(move)")
+@app.get("/make_move/{move}")
 async def make_move(move: str):
     return {}
 
 
 @app.get("/reset")
 async def reset():
-    return {}
-
+    board.reset()
+    return {"message": "end game"}
