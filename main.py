@@ -40,7 +40,15 @@ async def get_pieces():
 
 @app.get("/make_move/{move}")
 async def make_move(move: str):
-    return {}
+    if chess.Move.from_uci(move) in board.legal_moves :
+        board.push_uci(move)
+        return{
+            "move_made": move,
+            "turn": "white" if board.turn == chess.WHITE else "black",
+            "legal_moves": [move.uci() for move in board.legal_moves] 
+        }
+    else: 
+        return{"error" : "invalid movement"}
 
 
 @app.get("/reset")
